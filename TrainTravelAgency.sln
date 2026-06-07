@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainTravelAgency", "TrainTravelAgency\TrainTravelAgency.csproj", "{1DAFE918-99A1-485B-8725-7554B13AC373}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainTravelAgency.Test", "TrainTravelAgency.Test\TrainTravelAgency.Test.csproj", "{8149AFF2-8C48-46D9-AFC8-FEF4C0FFE04B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DAFE918-99A1-485B-8725-7554B13AC373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DAFE918-99A1-485B-8725-7554B13AC373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DAFE918-99A1-485B-8725-7554B13AC373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DAFE918-99A1-485B-8725-7554B13AC373}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8149AFF2-8C48-46D9-AFC8-FEF4C0FFE04B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8149AFF2-8C48-46D9-AFC8-FEF4C0FFE04B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8149AFF2-8C48-46D9-AFC8-FEF4C0FFE04B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8149AFF2-8C48-46D9-AFC8-FEF4C0FFE04B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3D57E159-40C2-477F-A681-B80C845A46BC}
+	EndGlobalSection
+EndGlobal
