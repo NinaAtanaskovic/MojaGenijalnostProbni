@@ -61,20 +61,19 @@ namespace TrainTravelAgency.Test
         [Test]
         public void CalculateTicketPrice_ExeptionTip()
         {
-            User user= new User { Id = Guid.NewGuid(), NumberOfTicketsPurchasedInTheLastMonth = 5 };
-            Fus fus=new Fus(user, true); //postavljamo shouldThrow na true da on zna da treba da baci exception
-            string exMes= "External user service error.";
+            User user = new User { Id = Guid.NewGuid(), NumberOfTicketsPurchasedInTheLastMonth = 5 };
+            Fus fus = new Fus(user, true); //postavljamo shouldThrow na true da on zna da treba da baci exception
             Fls fls = new Fls();
             ReservationService servis = new ReservationService(fus, fls);
             Assert.That(
-               (Action)(() => servis.CalculateTicketPriceForUser(1000,TicketType.FirstClass,user.Id)),
+               (Action)(() => servis.CalculateTicketPriceForUser(1000, TicketType.FirstClass, user.Id)),
                Throws.TypeOf<ExternalServiceErrorException>());
 
         }
         [Test]
         public void CalculateTicketPrice_DalBacaTuPoruku()
         {
-            User user= new User { Id = Guid.NewGuid(), NumberOfTicketsPurchasedInTheLastMonth = 5 };
+            User user = new User { Id = Guid.NewGuid(), NumberOfTicketsPurchasedInTheLastMonth = 5 };
             Fus fus = new Fus(user, true);
             string expMes = "External user service error.";
             Fls fls = new Fls();
@@ -84,6 +83,32 @@ namespace TrainTravelAgency.Test
             Assert.That(expMes, Is.EqualTo(fls.Message));
 
         }
+        //F3 DISTANCE 
+        /*
+         *  public double GetDistanceBetweenCities(Guid cityFromId, Guid cityToId)
+        {
+            double distanceInMiles =_distanceCalculationService.CalculateDistance(cityFromId, cityToId);
+            return distanceInMiles * 1.060;
+        }
+         */
+        //km->milje
+        //mala(10)+velika udaljenost(2000) + srednja(800) + 0
+        [TestCase(10,10*1.060)]
+        [TestCase(2000, 2000 * 1.060)]
+        [TestCase(800, 800 * 1.060)]
+        [TestCase(0,0)]
+        public void GetDistanceBetweenCities_TacnaDistanca(double km,double exp)
+        {
+            Fdc fdc= new Fdc(km);
+            ReservationService servis = new ReservationService(null, null, fdc);
+            double rezultat= servis.GetDistanceBetweenCities(Guid.NewGuid(), Guid.NewGuid());
+            Assert.That(rezultat, Is.EqualTo(exp).Within(0.0001));
+        }
+
+
+
+
+
 
 
 
