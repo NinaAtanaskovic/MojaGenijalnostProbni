@@ -1,0 +1,14 @@
+﻿﻿# luggageWeight [0,30] [31, ...]
+# travelHour [0, 2] [3, 4] [5, 23]
+seatType: Regular, Romettes, Table
+luggageWeight: 0, 15, 29, 30, 31
+travelHour: 0, 1, 2, 3, 4, 5, 14, 22, 23
+beverage: true, false
+
+ticketType: SecondClass, FirstClass, Economic, null
+
+if [beverage] = "true" and [seatType] = "regular" then [ticketType] = "null";
+if [beverage] = "true" and [seatType] <> "regular" then [ticketType] = "FirstClass";
+if [luggageWeight] > 30 and [travelHour] > 2 and [travelHour] < 5 then [ticketType] = "SecondClass";
+if [luggageWeight] > 30 and [travelHour] <= 2 or [travelHour] >= 5 then [ticketType] = "null";
+if [beverage] = "false" and [luggageWeight] <= 30 then [ticketType] = "Economic"; 

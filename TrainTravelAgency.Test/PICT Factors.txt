@@ -1,4 +1,11 @@
+
+
+
+OVO NIJE TACNO
+
 SeatType: Romettes, Regular, Table
 LuggageWeight: 10, 31, 50
 Beverage: true, false
 TravelHour: 1, 3, 6
+
+

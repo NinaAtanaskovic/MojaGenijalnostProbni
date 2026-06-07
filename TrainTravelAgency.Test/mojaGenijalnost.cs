@@ -24,16 +24,18 @@ namespace TrainTravelAgency.Test
 
 
         //ako upada u prvi if (firstclass) i ipunava uslov za dist>1500
-        [TestCase(1501, TicketType.FirstClass, 5, "000000000-0000-0000-0000-000000000001", 1501 * 0.06)]
+        [TestCase(1501, TicketType.FirstClass, 5, 000000000-0000-0000-0000-000000000001, 1501 * 0.06)]
         //ako ne upada u if a first class je 
-        [TestCase(1000, TicketType.FirstClass, 5, "000000000-0000-0000-0000-000000000001", 1000 * 0.1)]
+        [TestCase(1000, TicketType.FirstClass, 5, 000000000-0000-0000-0000-000000000001, 1000 * 0.1)]
         //second class i ispunjava oba uslova
-        [TestCase(1001, TicketType.SecondClass, 15, "000000000-0000-0000-0000-000000000001", 1001 * 0.04)]
+        [TestCase(1001, TicketType.SecondClass, 15, 000000000-0000-0000-0000-000000000001, 1001 * 0.04)]
         //second class i ne ispunjava uslove
-        [TestCase(999, TicketType.SecondClass, 14, "00000000-0000-0000-0000-000000000001", 999 * 0.05)]
+        [TestCase(999, TicketType.SecondClass, 14, 00000000-0000-0000-0000-000000000001, 999 * 0.05)]
         //ne upada nigde (economy)
-        [TestCase(500, TicketType.Economic, 0, "00000000-0000-0000-0000-000000000001", 500 * 0.01)]
+        [TestCase(500, TicketType.Economic, 0, 00000000-0000-0000-0000-000000000001, 500 * 0.01)]
 
+
+        //ne prolaze zbog Guid-a(umesto ovog stringa samo ne prolsedimo nista i stavimo za ID new guid)
         public void CalculateTicketPrice_TacnaCena(double distance, TicketType tipKarte, int brKarataPrMesec, Guid id, double exp)
         {
             User user = new User
@@ -48,16 +50,18 @@ namespace TrainTravelAgency.Test
 
         }
 
-        [TestCase(1000, TicketType.FirstClass, 11, "000000000-0000-0000-0000-000000000001", 1000 * 0.06)]
-        public void CalculateTicketPrice_TacnaCena2(double distance, TicketType tipKarte, int brKarataPrMesec, Guid id, double exp)
+        [TestCase(1000, TicketType.FirstClass, 11, 1000 * 0.06)]
+        public void CalculateTicketPrice_TacnaCena2(double distance, TicketType tipKarte, int brKarataPrMesec,  double exp)
         {
-
-            User korisnik = new User { Id = id, NumberOfTicketsPurchasedInTheLastMonth = brKarataPrMesec };
+            Guid id = new Guid();
+            User korisnik = new User { Id =id, NumberOfTicketsPurchasedInTheLastMonth = brKarataPrMesec };
             Fus fakeUserIn = new Fus(korisnik);
             ReservationService servis = new ReservationService(fakeUserIn);
-            Assert.That(servis.CalculateTicketPriceForUser(distance, tipKarte, id), Is.EqualTo(exp).Within(0.0001));
+            Assert.That(servis.CalculateTicketPriceForUser(distance, tipKarte,id ), Is.EqualTo(exp).Within(0.0001));
 
         }
+
+
         [Test]
         public void CalculateTicketPrice_ExeptionTip()
         {
@@ -93,29 +97,29 @@ namespace TrainTravelAgency.Test
          */
         //km->milje
         //mala(10)+velika udaljenost(2000) + srednja(800) + 0
-        [TestCase(10,10*1.060)]
+        [TestCase(10, 10 * 1.060)]
         [TestCase(2000, 2000 * 1.060)]
         [TestCase(800, 800 * 1.060)]
-        [TestCase(0,0)]
-        public void GetDistanceBetweenCities_TacnaDistanca(double km,double exp)
+        [TestCase(0, 0)]
+        public void GetDistanceBetweenCities_TacnaDistanca(double km, double exp)
         {
-            Fdc fdc= new Fdc(km);
+            Fdc fdc = new Fdc(km);
             ReservationService servis = new ReservationService(null, null, fdc);
-            double rezultat= servis.GetDistanceBetweenCities(Guid.NewGuid(), Guid.NewGuid());
+            double rezultat = servis.GetDistanceBetweenCities(Guid.NewGuid(), Guid.NewGuid());
             Assert.That(rezultat, Is.EqualTo(exp).Within(0.0001));
         }
+        //F2 PICT 
+        //(tipSedista, tezinaPrtljaga, satiPutovanja, pice, karta)
+        [TestCaseSource(typeof(MojPARSER), "Parsiraj", new object[] {"MojREZULTAT.txt"})]
+        public void RecommendTicketType_PICT(SeatType tipSedista, double tezinaPrtljaga, int satiPutovanja, bool pice, TicketType? exp)
+        {
 
+            ReservationService servis = new ReservationService(null,null,null);
+            TicketType? rezultat = servis.RecommendTicketType(tipSedista, tezinaPrtljaga, pice, satiPutovanja);
+            // stoji ? jer moze vratiti i null 
+            Assert.That(rezultat, Is.EqualTo(exp));
 
-
-
-
-
-
-
-
-
-
-
+        }
 
 
     }

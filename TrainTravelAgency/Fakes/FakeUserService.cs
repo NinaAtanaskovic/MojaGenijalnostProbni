@@ -15,7 +15,10 @@ namespace TrainTravelAgency.Fakes
             _user = user;
         _shouldThrow = shouldThrow;
         }
-
+        public FakeUserService(User user)
+        {
+            _user = user;
+        }
         public User GetUserById(Guid userId)
         {
             if (_shouldThrow)
